@@ -17,9 +17,11 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.contextMenus.onClicked.addListener(function(item, tab) {
+  let regex = RegExp('[0-9]{4}','g');
+  let securityCode = regex.exec(item.selectionText);
   let url =
 //    'https://google.' + item.menuItemId + '/search?q=' + item.selectionText;
-    item.menuItemId.replace(/\<CODE\>/,item.selectionText);
+    item.menuItemId.replace(/\<CODE\>/,securityCode[0]);
   chrome.tabs.create({url: url, index: tab.index + 1});
 });
 
