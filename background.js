@@ -1,10 +1,6 @@
-// Copyright 2018 westcide.com All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
-// Add a listener to create the initial context menu items,
-// context menu items only need to be created at runtime.onInstalled
+importScripts('sites.js');
+
 chrome.runtime.onInstalled.addListener(function() {
   for (let key of Object.keys(kSites)) {
     chrome.contextMenus.create({
@@ -44,7 +40,7 @@ chrome.contextMenus.onClicked.addListener(function(item, tab) {
     query = securityCode[0];
   }
   let url = item.menuItemId.replace(/\<CODE\>/,query);
-  if(item.menuItemId.match(/kabuka\.biz/)){
+  if(item.menuItemId.match(/kabuka\.biz/)&&url&&query){
     url = url.replace(/\<CODE2\>/,query.substr(0,1));
   }  
 
